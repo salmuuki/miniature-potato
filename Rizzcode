@@ -1,0 +1,9 @@
+print("Hey, what's your name?")
+
+name = input("Your name: ")
+
+print(f"Oh hey {name} what's your age?")
+
+age = input("Age: ")
+
+print(f"Well I do not care if you're {age}, I just want you to be mine ;)")
