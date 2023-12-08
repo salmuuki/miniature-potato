@@ -1,0 +1,5 @@
+word = input("Type a word: ")
+
+length_category = "short" if len(word) <= 5 else "long"
+
+print(f"The word '{word}' is a {length_category} word.")
