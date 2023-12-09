@@ -1,0 +1,11 @@
+# Get user input for name and age
+
+name = input("Enter your name: ")
+
+age = input("Enter your age: ")
+
+# Print the entered information
+
+print("Your name is:", name)
+
+print("Your age is:", age)
