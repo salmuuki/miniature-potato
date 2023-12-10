@@ -1,0 +1,5 @@
+number = 5
+
+result = number ** 2
+
+print(f"The square of {number} is: {result}")
