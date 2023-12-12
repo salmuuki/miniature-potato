@@ -1,0 +1,6 @@
+import antigravity
+
+for i in range(3):
+    print("Whee!")
+
+print("Code executed with style!")
