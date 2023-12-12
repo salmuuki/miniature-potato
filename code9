@@ -1,0 +1,6 @@
+adventure_time_characters = ["Finn", "Jake", "Princess Bubblegum", "Marceline", "Ice King"]
+
+for character in adventure_time_characters:
+    print(f"{character} is off on another mathematical adventure!")
+
+print("Adventure Time, come on, grab your friends!")
