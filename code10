@@ -1,0 +1,7 @@
+def tell_joke():
+
+    print("Why do programmers prefer dark mode?")
+    input("Press Enter to find out...")
+    print("Because light attracts bugs!")
+
+tell_joke()
