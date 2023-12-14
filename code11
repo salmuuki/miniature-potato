@@ -1,0 +1,13 @@
+import time
+
+def print_merry_christmas():
+    message = "Merry Christmas"
+    for letter in message:
+        input("Press Enter to reveal the next letter...")
+        print(letter, end='', flush=True)
+        time.sleep(0.5)  # Adjust the sleep duration as needed
+
+    print("\nMerry Christmas!")
+
+if __name__ == "__main__":
+    print_merry_christmas()
