@@ -1,0 +1,19 @@
+def calculate_savings_per_day(total_cost, days_per_week, weeks_in_month):
+    days_per_month = days_per_week * weeks_in_month
+    savings_per_day = total_cost / days_per_month
+    return savings_per_day
+
+def main():
+    # Input parameters
+    computer_cost = 1500  # cost of the new computer in euros
+    days_per_week = 4  # number of days the person can contribute money per week
+    weeks_in_month = 4  # assuming 4 weeks in a month
+
+    # Calculate savings per day
+    savings_per_day = calculate_savings_per_day(computer_cost, days_per_week, weeks_in_month)
+
+    # Display the result
+    print(f"To afford a new computer costing {computer_cost} euros in a month", "you need to save approximately {savings_per_day:.2f} euros per day.")
+
+if __name__ == "__main__":
+    main()
