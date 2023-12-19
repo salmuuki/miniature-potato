@@ -1,0 +1,20 @@
+import turtle
+import random
+
+def draw_colorful_spiral():
+    turtle.speed(2)
+    turtle.bgcolor("black")
+
+    colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"]
+
+    for _ in range(36):
+        turtle.color(random.choice(colors))
+        turtle.forward(100)
+        turtle.right(170)
+
+    turtle.done()
+
+    
+
+# Call the function to draw the colorful spiral
+draw_colorful_spiral()
