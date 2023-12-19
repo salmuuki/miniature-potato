@@ -1,0 +1,25 @@
+woerterbuch = {
+    'Puerta': 'Tür',
+    'Bombilla': 'Glühbirne',
+    'Luz': 'Licht',
+    'Habitación': 'Zimmer',
+    'Casa': 'Haus',
+    'Mesa': 'Tisch',
+    'Cocina': 'Küche',
+    'Muebles': 'Möbel',
+    'Tenedor': 'Gabel',
+    'Cuchillo': 'Messer',
+    'Cuchara': 'Löffel'
+}
+
+def uebersetzen(wort):
+    return woerterbuch.get(wort, 'Übersetzung nicht gefunden')
+
+
+deutsches_wort = input('Gib ein deutsches Wort ein: ')
+
+
+spanisches_wort = uebersetzen(deutsches_wort)
+
+
+print(f'Die Übersetzung von "{deutsches_wort}" ins Spanische ist: {spanisches_wort}')
