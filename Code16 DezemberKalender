@@ -1,0 +1,25 @@
+from datetime import datetime
+
+def feiertag_anzeigen(datum):
+    feiertage = {
+        "01-01": "Neujahr",
+        "01-06": "Heilige Drei Könige",
+        "05-01": "Tag der Arbeit",
+        "10-03": "Tag der Deutschen Einheit",
+        "12-25": "1. Weihnachtstag",
+        "12-26": "2. Weihnachtstag"
+    }
+
+    datum_str = datum.strftime("%m-%d")
+
+    if datum_str in feiertage:
+        return feiertage[datum_str]
+    else:
+        return "Kein Feiertag"
+
+
+datum_eingabe = input("Gib das Datum im Format YYYY-MM-DD ein: ")
+datum = datetime.strptime(datum_eingabe, "%Y-%m-%d")
+
+feiertag = feiertag_anzeigen(datum)
+print(f"Am {datum_eingabe} ist {feiertag}.")
