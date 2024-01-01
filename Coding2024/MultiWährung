@@ -1,0 +1,30 @@
+class Waehrungsumrechner:
+    def __init__(self):
+        self.wechselkurse = {
+            'USD': 1.12,
+            'EUR': 0.89,
+            'GBP': 0.78,
+            'JPY': 120.0
+        }
+
+    def umrechnen(self, betrag, von, nach):
+        if von not in self.wechselkurse or nach not in self.wechselkurse:
+            print("Ungültige Währungscodes.")
+            return None
+
+        betrag_in_euro = betrag / self.wechselkurse[von]
+        zielbetrag = betrag_in_euro * self.wechselkurse[nach]
+
+        return zielbetrag
+
+if __name__ == "__main__":
+    rechner = Waehrungsumrechner()
+
+    betrag = float(input("Gib den Betrag ein: "))
+    von_waehrung = input("Von Währung (z.B., USD): ").upper()
+    zu_waehrung = input("Zu Währung (z.B., EUR): ").upper()
+
+    ergebnis = rechner.umrechnen(betrag, von_waehrung, zu_waehrung)
+
+    if ergebnis is not None:
+        print(f"{betrag} {von_waehrung} entsprechen {ergebnis:.2f} {zu_waehrung}.")
