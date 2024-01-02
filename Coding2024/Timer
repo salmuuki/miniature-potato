@@ -1,0 +1,13 @@
+import time
+
+def timer(seconds):
+    print(f"Timer set for {seconds} seconds.")
+    time.sleep(seconds)
+    print("Timer complete!")
+
+if __name__ == "__main__":
+    try:
+        seconds = int(input("Enter the number of seconds for the timer: "))
+        timer(seconds)
+    except ValueError:
+        print("Invalid input. Please enter a valid number of seconds.")
