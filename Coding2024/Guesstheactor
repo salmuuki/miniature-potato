@@ -1,0 +1,46 @@
+import random
+
+# Dictionary with adjectives and corresponding actors
+adjectives_and_actors = {
+    'charismatic': 'Robert Downey Jr.',
+    'talented': 'Leonardo DiCaprio',
+    'versatile': 'Meryl Streep',
+    'charming': 'Tom Hanks',
+    'captivating': 'Angelina Jolie',
+    'hilarious': 'Jim Carrey',
+    'enigmatic': 'Johnny Depp',
+    'graceful': 'Audrey Hepburn',
+    'dashing': 'George Clooney',
+    'dynamic': 'Scarlett Johansson'
+}
+
+def guess_actor(adjectives, actor_options):
+    # Randomly select an actor
+    actor = random.choice(actor_options)
+    
+    # Display the adjectives and actor options
+    print("Adjectives: " + ', '.join(adjectives))
+    print("Actor Options: " + ', '.join(actor_options))
+
+    # Prompt for a guess
+    guess = input("Guess the actor: ")
+
+    # Check if the guess is correct
+    if guess.lower() == actor.lower():
+        print("Congratulations! Your guess is correct. It's", actor)
+    else:
+        print("Oops! Your guess is incorrect. It's actually", actor)
+
+# Get a list of actor options
+actor_options = list(adjectives_and_actors.values())
+
+# Shuffle the adjectives and actor options for a random order each time
+shuffled_adjectives = list(adjectives_and_actors.keys())
+random.shuffle(shuffled_adjectives)
+random.shuffle(actor_options)
+
+# Select a subset of adjectives for the game
+selected_adjectives = shuffled_adjectives[:5]
+
+# Call the function to play the game
+guess_actor(selected_adjectives, actor_options)
