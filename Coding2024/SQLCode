@@ -1,0 +1,44 @@
+import sqlite3
+
+
+conn = sqlite3.connect("example.db")
+
+
+cursor = conn.cursor()
+
+
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS students (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        age INTEGER NOT NULL
+    )
+''')
+
+
+students_data = [
+    ("Alice", 20),
+    ("Bob", 22),
+    ("Charlie", 21),
+]
+
+cursor.executemany('''
+    INSERT INTO students (name, age) VALUES (?, ?)
+''', students_data)
+
+
+conn.commit()
+
+
+cursor.execute('''
+    SELECT * FROM students
+''')
+
+
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
+
+
+cursor.close()
+conn.close()
