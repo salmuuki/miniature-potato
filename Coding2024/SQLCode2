@@ -1,0 +1,36 @@
+import sqlite3
+
+
+connection = sqlite3.connect('example.db')
+cursor = connection.cursor()
+
+
+create_table_query = '''
+CREATE TABLE IF NOT EXISTS SampleTable (
+    ID INTEGER PRIMARY KEY,
+    Name TEXT
+)
+'''
+cursor.execute(create_table_query)
+connection.commit()
+
+
+insert_query = '''
+INSERT INTO SampleTable (ID, Name) VALUES (?, ?)
+'''
+cursor.execute(insert_query, (1, 'John Doe'))
+cursor.execute(insert_query, (2, 'Jane Doe'))
+connection.commit()
+
+
+select_query = '''
+SELECT * FROM SampleTable
+'''
+cursor.execute(select_query)
+
+for row in cursor.fetchall():
+    print(row)
+
+
+cursor.close()
+connection.close()
