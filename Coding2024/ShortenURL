@@ -1,0 +1,30 @@
+import string
+import random
+
+url_mapping = {}  
+
+def generate_short_code():
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choice(characters) for _ in range(6))  
+
+def shorten_url(long_url):
+    short_code = generate_short_code()
+    url_mapping[short_code] = long_url
+    return short_code
+
+def redirect_to_original(short_code):
+    long_url = url_mapping.get(short_code)
+    if long_url:
+        return long_url
+    else:
+        return 'Shortened URL not found'
+
+# example 
+long_url = "https://www.example.com"
+short_code = shorten_url(long_url)
+print(f'Shortened URL: http://yourdomain.com/{short_code}')
+
+# redirect to the original URL
+input_short_code = input("Enter the short code to redirect: ")
+original_url = redirect_to_original(input_short_code)
+print(f'Redirecting to: {original_url}')
