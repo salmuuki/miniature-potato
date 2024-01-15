@@ -1,0 +1,69 @@
+# We gotta import sqlite so we can create tables and modifie them as well
+import sqlite3
+
+
+conn = sqlite3.connect("todo.db")
+cursor = conn.cursor()
+
+
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS tasks (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        task TEXT NOT NULL,
+        completed INTEGER DEFAULT 0
+    )
+''')
+conn.commit()
+
+def add_task(task):
+    cursor.execute("INSERT INTO tasks (task) VALUES (?)", (task,))
+    conn.commit()
+
+def view_tasks():
+    cursor.execute("SELECT * FROM tasks")
+    tasks = cursor.fetchall()
+    for task in tasks:
+        task_id, task_text, completed = task
+        status = "Done" if completed else "Not Done"
+        print(f"{task_id}. {task_text} - {status}")
+
+def complete_task(task_id):
+    cursor.execute("UPDATE tasks SET completed = 1 WHERE id = ?", (task_id,))
+    conn.commit()
+
+def delete_task(task_id):
+    cursor.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
+    conn.commit()
+
+def main():
+    while True:
+        print("\n===== To-Do List =====")
+        print("1. View Tasks")
+        print("2. Add Task")
+        print("3. Complete Task")
+        print("4. Delete Task")
+        print("0. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            view_tasks()
+        elif choice == "2":
+            task = input("Enter the task: ")
+            add_task(task)
+        elif choice == "3":
+            task_id = input("Enter the task ID to mark as completed: ")
+            complete_task(task_id)
+        elif choice == "4":
+            task_id = input("Enter the task ID to delete: ")
+            delete_task(task_id)
+        elif choice == "0":
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
+
+
+conn.close()
