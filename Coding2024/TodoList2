@@ -1,0 +1,55 @@
+import sqlite3
+from datetime import datetime
+
+conn = sqlite3.connect('task_manager.db')
+cursor = conn.cursor()
+
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS tasks (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        task TEXT NOT NULL,
+        due_date DATE,
+        completed INTEGER DEFAULT 0
+    )
+''')
+
+conn.commit()
+
+def add_task(task, due_date=None):
+    cursor.execute('INSERT INTO tasks (task, due_date) VALUES (?, ?)', (task, due_date))
+    conn.commit()
+
+def mark_task_completed(task_id):
+    cursor.execute('UPDATE tasks SET completed = 1 WHERE id = ?', (task_id,))
+    conn.commit()
+
+def delete_completed_tasks():
+    cursor.execute('DELETE FROM tasks WHERE completed = 1')
+    conn.commit()
+
+def view_tasks():
+    cursor.execute('SELECT * FROM tasks ORDER BY due_date')
+    tasks = cursor.fetchall()
+    for task in tasks:
+        task_id, task_text, due_date, completed = task
+        status = 'Done' if completed else 'Not Done'
+        print(f"{task_id}. {task_text} - Due: {due_date} - {status}")
+
+# example usage
+add_task('Buy groceries', '2024-01-20')
+add_task('Finish coding assignment', '2024-01-25')
+add_task('Call a friend')
+
+view_tasks()
+
+task_to_mark_completed = int(input("Enter the task ID to mark as completed (or 0 to exit): "))
+while task_to_mark_completed != 0:
+    mark_task_completed(task_to_mark_completed)
+    view_tasks()
+    task_to_mark_completed = int(input("Enter the task ID to mark as completed (or 0 to exit): "))
+
+delete_completed_tasks()
+print("\nDeleted completed tasks:")
+view_tasks()
+
+conn.close()
