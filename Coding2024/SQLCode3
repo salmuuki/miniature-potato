@@ -1,0 +1,77 @@
+import sqlite3
+
+conn = sqlite3.connect("example.db")
+
+cursor = conn.cursor()
+
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS courses (
+        id INTEGER PRIMARY KEY,
+        course_name TEXT NOT NULL,
+        instructor TEXT NOT NULL
+    )
+''')
+
+
+courses_data = [
+    ("Python Programming", "John Smith"),
+    ("Database Management", "Alice Johnson"),
+    ("Web Development", "Bob Williams"),
+]
+
+cursor.executemany('''
+    INSERT INTO courses (course_name, instructor) VALUES (?, ?)
+''', courses_data)
+
+
+conn.commit()
+
+
+cursor.execute('''
+    SELECT * FROM courses
+''')
+
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
+
+
+update_query = '''
+    UPDATE courses
+    SET instructor = ?
+    WHERE course_name = ?
+'''
+new_instructor = "Eve Davis"
+cursor.execute(update_query, (new_instructor, "Web Development"))
+conn.commit()
+
+
+print("\nAfter updating the instructor for 'Web Development':")
+cursor.execute('''
+    SELECT * FROM courses
+''')
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
+
+
+delete_query = '''
+    DELETE FROM courses
+    WHERE course_name = ?
+'''
+course_to_delete = "Database Management"
+cursor.execute(delete_query, (course_to_delete,))
+conn.commit()
+
+
+print("\nAfter deleting 'Database Management':")
+cursor.execute('''
+    SELECT * FROM courses
+''')
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
+
+
+cursor.close()
+conn.close()
