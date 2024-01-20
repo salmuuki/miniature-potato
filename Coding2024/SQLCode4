@@ -1,0 +1,59 @@
+import sqlite3
+
+conn = sqlite3.connect("example.db")
+
+cursor = conn.cursor()
+
+cursor.execute('''
+    ALTER TABLE courses
+    ADD COLUMN credits INTEGER DEFAULT 0
+''')
+
+conn.commit()
+
+cursor.execute('PRAGMA table_info(courses)')
+columns_info = cursor.fetchall()
+print("\nUpdated 'courses' table structure:")
+for column in columns_info:
+    print(column)
+
+credits_threshold = 2
+cursor.execute('''
+    SELECT * FROM courses
+    WHERE credits > ?
+''', (credits_threshold,))
+
+
+print(f"\nCourses with more than {credits_threshold} credits:")
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
+
+
+try:
+    
+    conn.execute("BEGIN TRANSACTION")
+
+    
+    cursor.execute('''
+        INSERT INTO courses (course_name, instructor, credits)
+        VALUES (?, ?, ?)
+    ''', ("Data Science", "Eve Davis", 3))
+
+    
+    conn.commit()
+except sqlite3.IntegrityError as e:
+   
+    conn.rollback()
+    print(f"\nTransaction rolled back due to error: {e}")
+
+
+print("\nTable 'courses' after the attempted insertion:")
+cursor.execute('SELECT * FROM courses')
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
+
+
+cursor.close()
+conn.close()
