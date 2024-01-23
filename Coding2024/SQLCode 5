@@ -1,0 +1,72 @@
+import sqlite3
+
+
+conn = sqlite3.connect("example.db")
+
+
+cursor = conn.cursor()
+
+
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS students_courses (
+        student_id INTEGER,
+        course_id INTEGER,
+        FOREIGN KEY (student_id) REFERENCES students (id),
+        FOREIGN KEY (course_id) REFERENCES courses (id),
+        PRIMARY KEY (student_id, course_id)
+    )
+''')
+
+
+students_data = [
+    ("Alice", 20),
+    ("Bob", 22),
+    ("Charlie", 21),
+]
+
+cursor.executemany('''
+    INSERT INTO students (name, age) VALUES (?, ?)
+''', students_data)
+
+
+courses_data = [
+    ("Python Programming", "John Smith", 3),
+    ("Database Management", "Alice Johnson", 4),
+    ("Web Development", "Bob Williams", 5),
+]
+
+cursor.executemany('''
+    INSERT INTO courses (course_name, instructor, credits) VALUES (?, ?, ?)
+''', courses_data)
+
+# Enroll students in courses
+enrollments_data = [
+    (1, 1),  # Alice in Python Programming
+    (2, 2),  # Bob in Database Management
+    (3, 3),  # Charlie in Web Development
+    (1, 2),  # Alice also in Database Management
+]
+
+cursor.executemany('''
+    INSERT INTO students_courses (student_id, course_id) VALUES (?, ?)
+''', enrollments_data)
+
+
+conn.commit()
+
+
+cursor.execute('''
+    SELECT students.name, courses.course_name
+    FROM students
+    JOIN students_courses ON students.id = students_courses.student_id
+    JOIN courses ON students_courses.course_id = courses.id
+''')
+
+print("\nEnrolled Students and Courses:")
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
+
+
+cursor.close()
+conn.close()
