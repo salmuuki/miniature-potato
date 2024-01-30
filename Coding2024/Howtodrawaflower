@@ -1,0 +1,43 @@
+# the easiest way (and more effective) to draw something with python is importing pygame and sys
+import pygame
+import sys
+
+pygame.init()
+
+# set up display
+width, height = 800, 600
+screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption("Flower Drawing")
+
+# set up the colors
+white = (255, 255, 255)
+green = (0, 255, 0)
+yellow = (255, 255, 0)
+
+# drawing loop
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    # white background
+    screen.fill(white)
+
+    # flower stem
+    pygame.draw.rect(screen, green, (width // 2 - 5, height // 2, 10, 100))
+
+    # flower petals
+    pygame.draw.circle(screen, yellow, (width // 2 - 30, height // 2 - 30), 30)
+    pygame.draw.circle(screen, yellow, (width // 2 + 30, height // 2 - 30), 30)
+    pygame.draw.circle(screen, yellow, (width // 2 - 30, height // 2 + 30), 30)
+    pygame.draw.circle(screen, yellow, (width // 2 + 30, height // 2 + 30), 30)
+
+    # flower center
+    pygame.draw.circle(screen, yellow, (width // 2, height // 2), 20)
+
+    # update the display
+    pygame.display.flip()
+
+    # frame rate control
+    pygame.time.Clock().tick(30)
