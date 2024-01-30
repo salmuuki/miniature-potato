@@ -1,0 +1,57 @@
+# always gotta import this tkinter as tk so everything you draw you can also interact with it (pygame also an option tho)
+import tkinter as tk
+
+# in the final project we will explain more about the different classes and commands and how to they work to create objects
+class HangmanGame:
+    def __init__(self):
+        self.root = tk.Tk()
+        self.root.title("Hangman Game")
+
+        self.canvas = tk.Canvas(self.root, width=200, height=250)
+        self.canvas.pack()
+
+        self.drawings = [
+            self.draw_head,
+            self.draw_body,
+            self.draw_left_arm,
+            self.draw_right_arm,
+            self.draw_left_leg,
+            self.draw_right_leg,
+        ]
+
+        self.current_stage = -1
+
+        self.next_button = tk.Button(self.root, text="Next", command=self.next_stage)
+        self.next_button.pack()
+
+    def draw_head(self):
+        self.canvas.create_oval(90, 20, 110, 40, width=2)
+
+    def draw_body(self):
+        self.canvas.create_line(100, 40, 100, 120, width=2)
+
+    def draw_left_arm(self):
+        self.canvas.create_line(100, 60, 70, 90, width=2)
+
+    def draw_right_arm(self):
+        self.canvas.create_line(100, 60, 130, 90, width=2)
+
+    def draw_left_leg(self):
+        self.canvas.create_line(100, 120, 70, 150, width=2)
+
+    def draw_right_leg(self):
+        self.canvas.create_line(100, 120, 130, 150, width=2)
+
+    def next_stage(self):
+        self.current_stage += 1
+        if self.current_stage < len(self.drawings):
+            self.drawings[self.current_stage]()
+        else:
+            tk.messagebox.showinfo("Game Over", "No more stages!")
+
+    def run(self):
+        self.root.mainloop()
+
+# executeee
+hangman_game = HangmanGame()
+hangman_game.run()
