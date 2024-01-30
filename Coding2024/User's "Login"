@@ -1,0 +1,29 @@
+# tkinter immer am start
+import tkinter as tk
+
+class Game:
+# always call __init__ whenever a class object is initiated
+    def __init__(self):
+        self.root = tk.Tk()
+        self.root.title("Game")
+
+        self.label = tk.Label(self.root, text="Dein Name bitte:")
+        self.label.pack()
+
+        self.name_entry = tk.Entry(self.root)
+        self.name_entry.pack()
+
+        self.play_button = tk.Button(self.root, text="Play", command=self.start_game)
+        self.play_button.pack()
+
+    def start_game(self):
+        username = self.name_entry.get()
+        if username:
+            self.root.destroy()  # close the input form
+            # start game
+            print(f"Hi, {username}! Lass uns jetzt spielen!")
+            
+# call the function at the end
+if __name__ == "__main__":
+    game = Game()
+    game.root.mainloop()
