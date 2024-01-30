@@ -1,0 +1,11 @@
+import tkinter as tk
+from tkinter import messagebox
+
+# show the pop-up directly with the message
+messagebox.showinfo("Congratulations", "Well done!")
+
+# this line is not necessary as we are not using the main window now
+# root = tk.Tk()
+
+# start the Tkinter event loop
+# root.mainloop()
