@@ -1,0 +1,12 @@
+# first gotta import pandas library so that it can access the excel table somehow, openpyx1 would also work
+import pandas as pd
+
+# then load the excel file
+excel_file_path = 'thewaytotheexcelfile'
+# df is the abbreviation to dataframe that is commonly used in python and the panda library
+df = pandas.read_excel(excel_file_path)
+
+# this is how to extract words from a specific column (this case the column name is 'words' for example)
+
+words = df['Words'].tolist()
+
