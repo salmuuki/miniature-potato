@@ -1,0 +1,23 @@
+# using xlrd and numpy for numerical operations
+
+import xlrd
+import numpy as np
+
+# need to install xlrd if not already installed: pip install xlrd
+
+def import_excel_with_numpy(file_path):
+    try:
+        workbook = xlrd.open_workbook(file_path)
+        sheet = workbook.sheet_by_index(0)
+        
+        # convert Excel sheet to a numPy array
+        data = [sheet.row_values(i) for i in range(sheet.nrows)]
+        np_array = np.array(data)
+        
+        # process the NumPy array as needed for the game
+        print(np_array)
+    except Exception as e:
+        print(f"Error importing Excel file: {e}")
+
+# execute and try
+import_excel_with_numpy('your_excel_file.xlsx')
