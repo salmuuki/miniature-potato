@@ -1,0 +1,17 @@
+# first of all import pandas as always
+
+import pandas as pd
+
+# then install openpyxl if not already installed: pip install openpyxl
+
+def import_excel_with_pandas(file_path):
+    try:
+        df = pd.read_excel(file_path, engine='openpyxl')
+        # now process the DataFrame as needed for your game
+        print(df)
+# if something goes wrong always print the error importing
+    except Exception as e:
+        print(f"Error importing Excel file: {e}")
+
+# and last usage/execution
+import_excel_with_pandas('your_excel_file.xlsx')
