@@ -1,0 +1,17 @@
+# using openpyxl for direct access to Excel data:
+
+from openpyxl import load_workbook
+
+def import_excel_with_openpyxl(file_path):
+    try:
+        workbook = load_workbook(file_path)
+        sheet = workbook.active
+
+        # get to cells directly and process as needed for your game
+        for row in sheet.iter_rows(min_row=1, max_row=sheet.max_row, values_only=True):
+            print(row)
+    except Exception as e:
+        print(f"Error importing Excel file: {e}")
+
+# execute
+import_excel_with_openpyxl('your_excel_file.xlsx')
